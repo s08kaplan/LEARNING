@@ -1,38 +1,70 @@
-import supabase from "../config/supabaseClient"
+import supabase from "../config/supabaseClient";
 import { useEffect, useState } from "react";
-import axios from "axios";
- 
-interface TodoProps{
-    error: boolean,
-    info:  any
+
+
+interface TodoProps {
+  error: boolean;
+  info: any[];  
 }
 
 const Home = () => {
-    // console.log(supabase);
-    const [todos, setTodos] = useState<TodoProps>({
-        error: false,
-        info:""
-    })
+  const [todos, setTodos] = useState<TodoProps>({
+    error: false,
+    info: [],
+  });
 
-    useEffect(() => {
+  useEffect(() => {
     const getTodos = async () => {
-      const { data } = await supabase.from("todos").select()
-      console.log(data);
-     !data ?  ( setTodos(prev => ({...prev,
-            error: true,
-            info: "Error fetching todos"})))
-            :
-            (
-                setTodos(prev => ({ ...prev, error: false, info: data}))
-            )
       
-    }
-getTodos()
-    }, [])
-    console.log(todos);
-  return (
-    <div>Home</div>
-  )
-}
+      const { data, error } = await supabase.from("todos").select("id, title, description, isCompleted, priority, created_at");
 
-export default Home
+      
+      console.log("Supabase data:", data);
+      console.log("Supabase error:", error);
+
+      if (error) {
+        setTodos((prev) => ({
+          ...prev,
+          error: true,
+          info: [],  
+        }));
+        console.error("Error fetching todos:", error.message);
+      } else {
+        
+        setTodos((prev) => ({
+          ...prev,
+          error: false,
+          info: data || [],  
+        }));
+      }
+    };
+
+    
+    getTodos();
+  }, []);
+
+  
+  console.log("Todos state:", todos);
+
+  return (
+    <div>
+    {todos.error ? (
+      <p>Error fetching todos: {todos.info}</p>
+    ) : (
+      <ul>
+        {todos.info.map((todo) => (
+          <li key={todo.id}>
+            <h3>{todo.title}</h3>
+            <p>{todo.description}</p>
+            <p>{`Completed: ${todo.isCompleted}`}</p>
+            <p>{`Priority: ${todo.priority.join(", ")}`}</p>
+            <p>{`Created at: ${todo.created_at}`}</p>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+  );
+};
+
+export default Home;
