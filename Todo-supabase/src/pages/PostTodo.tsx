@@ -55,6 +55,7 @@ const PostTodo = () => {
         if (error) {
             console.error("Error inserting post:", error);
         }
+        console.log(data);
     }
    setPosts(prev => ({...prev,  title: "",
     isCompleted: false,
