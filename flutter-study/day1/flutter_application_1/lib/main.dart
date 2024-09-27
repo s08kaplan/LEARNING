@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/lesson_1.dart';
+import 'package:flutter_application_1/lesson_basics.dart';
+import 'package:flutter_application_1/my_input.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,7 +35,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      home:  Basics(),
+      // home:  Basics(),
+      // home:  MyFormWidget(),
+      home: const MyHome(),
     );
   }
 }

@@ -29,7 +29,7 @@ import 'package:flutter/material.dart';
 // }
 class Basics extends StatelessWidget {
   
-   Basics({Key? key}) : super(key:key);
+  const Basics({Key? key}) : super(key:key);
 
   @override
   Widget build(BuildContext context) {
