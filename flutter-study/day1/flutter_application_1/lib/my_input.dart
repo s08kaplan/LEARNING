@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 // List of form fields (Dynamic form data)
 final List<Map<String, dynamic>> formFields = [
   {
-    'label': 'First Name',
-    'placeholder': 'Enter your first name',
+    'label': 'Username',
+    'placeholder': 'Enter your username',
     'type': TextInputType.text,
   },
   {
@@ -13,8 +13,8 @@ final List<Map<String, dynamic>> formFields = [
     'type': TextInputType.emailAddress,
   },
   {
-    'label': 'Phone Number',
-    'placeholder': 'Enter your phone number',
+    'label': 'Password',
+    'placeholder': 'Enter your password',
     'type': TextInputType.phone,
   },
 ];

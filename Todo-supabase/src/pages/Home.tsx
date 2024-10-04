@@ -58,7 +58,7 @@ const Home = () => {
             <p>{todo.description}</p>
             <p>{`Completed: ${todo.isCompleted}`}</p>
             <p>{`Priority: ${todo.priority.join(", ")}`}</p>
-            <p>{`Created at: ${todo.created_at}`}</p>
+            <p>{`Created at: ${new Date(todo.created_at).toDateString()}`}</p>
           </li>
         ))}
       </ul>
