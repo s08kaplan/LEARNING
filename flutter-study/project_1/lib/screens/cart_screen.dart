@@ -60,10 +60,10 @@
 //   }
 // }
 
-
 import 'package:flutter/material.dart';
 import 'package:project_1/api/cart_service.dart';
 import 'package:project_1/model/cart_model.dart';
+import 'package:project_1/screens/cart_detail.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -107,10 +107,35 @@ class _CartScreenState extends State<CartScreen> {
                         children: [
                           Text("Total Products: ${cart.totalProducts ?? 0}"),
                           SizedBox(height: 8), // Add some spacing
-                          if (cart.products != null && cart.products!.isNotEmpty)
+                          if (cart.products != null &&
+                              cart.products!.isNotEmpty)
                             Column(
                               children: cart.products!.map((product) {
                                 return ListTile(
+                                  leading: GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => CartDetail(
+                                                  product: product),
+                                                  ),
+                                                  );
+                                    },
+                                  
+                                  child: product.thumbnail != null
+                                      ? Image.network(
+                                          product.thumbnail!,
+                                          width: 100,
+                                          height: 100,
+                                          fit: BoxFit.cover,
+                                          errorBuilder:
+                                              (context, error, stackTrace) {
+                                            return Icon(Icons.error);
+                                          },
+                                        )
+                                      : Icon(Icons.image),
+                                  ),
                                   title: Text("${product.title}"),
                                   subtitle: Text("Price: ${product.price}"),
                                 );
