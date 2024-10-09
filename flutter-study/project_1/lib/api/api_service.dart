@@ -6,7 +6,8 @@ class ApiService {
   final String apiUrl = "https://dummyjson.com/products";
 
   Future<List<Product>> fetchProducts() async {
-    final response = await http.get(Uri.parse(apiUrl));
+    try {
+      final response = await http.get(Uri.parse(apiUrl));
 
     if (response.statusCode >= 200 && response.statusCode < 300) {
       List<dynamic> jsonData = json.decode(response.body)['products'];
@@ -14,15 +15,24 @@ class ApiService {
     }else {
       throw Exception("Failed to get products: ${response.statusCode}");
     }
+    } catch (error) {
+      throw Exception("Failed to get products: $error");
+    }
+    
   }
 
   Future<Product> fetchProduct(int productId) async {
-    final response = await http.get(Uri.parse("$apiUrl/$productId"));
+    try {
+      final response = await http.get(Uri.parse("$apiUrl/$productId"));
 
     if(response.statusCode >= 200 && response.statusCode < 300) {
       return Product.fromJson(json.decode(response.body));
     }else {
       throw Exception("Failed to get product: ${response.statusCode}");
+    } 
+    } catch (error) {
+       throw Exception("Failed to get product: $error}");
     }
+   
   }
 }

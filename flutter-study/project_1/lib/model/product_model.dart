@@ -1,30 +1,30 @@
 
 class Product {
-  final int id;
-  final String title;
-  final String description;
-  final String category;
-  final double price;
-  final double discountPercentage;
-  final double rating;
-  final int stock;
-  final String brand;
-  final String warrantyInformation;
-  final String shippingInformation;
-  final String availibilityStatus;
-  final List<Review> reviews;
-  final String returnPolicy;
-  final int minimumOrderQuantity;
-  final List<String> images;
-  final String thumbnail;
+ int id;
+ String title;
+ String description;
+ String? category;
+ double price;
+ double? discountPercentage;
+ double rating;
+ int stock;
+ String brand;
+ String warrantyInformation;
+ String shippingInformation;
+ String availibilityStatus;
+ List<Review> reviews;
+ String returnPolicy;
+ int minimumOrderQuantity;
+ List<String> images;
+ String thumbnail;
 
 Product({
   required this.id,
   required this.title,
   required this.description,
-  required this.category,
+   this.category,
   required this.price,
-  required this.discountPercentage,
+   this.discountPercentage,
   required this.rating,
   required this.stock,
   required this.brand,
@@ -41,13 +41,13 @@ Product({
 factory Product.fromJson(Map<String, dynamic> json) {
   return Product(
     id: json['id'],
-    title: json['title'],
-    description: json['description'],
+    title: json['title'] ?? "",
+    description: json['description'] ?? "",
     category: json['category'],
-    price: json['price'],
-    discountPercentage: json['discountPercentage'],
+    price: (json['price'] ?? 0.0).toDouble(),
+    discountPercentage: (json['discountPercentage'] as double?)?.toDouble(),
     rating: json['rating'],
-    stock: json['stock'],
+    stock: json['stock'] ?? 0,
     brand: json['brand'],
     warrantyInformation: json['warrantyInformation'],
     shippingInformation: json['shippingInformation'],
@@ -66,16 +66,16 @@ factory Product.fromJson(Map<String, dynamic> json) {
 
 
 class Review  {
-   final int rating;
-   final String comment;
-   final String date;
-   final String reviewerName;
-   final String reviewerEmail;
+    int rating;
+    String comment;
+    DateTime? date;
+    String reviewerName;
+    String reviewerEmail;
 
    Review({
     required this.rating ,
     required this.comment ,
-    required this.date ,
+    this.date ,
     required this.reviewerName ,
     required this.reviewerEmail ,
    });
@@ -84,9 +84,12 @@ class Review  {
     return Review(
       rating: json['rating'],
       comment: json['comment'],
-      date: json['date'],
+      date: json['date'] != null ? DateTime.parse(json['date']) : null,
       reviewerName: json['reviewerName'],
       reviewerEmail: json['reviewerEmail'],
      );
    }
 }
+
+
+
