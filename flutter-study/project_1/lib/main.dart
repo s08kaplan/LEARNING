@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:project_1/assets/colors.dart';
 // import 'package:project_1/screens/products_screen.dart';
 import 'package:project_1/screens/cart_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'dart:async';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
+
   runApp(const MyApp());
+
 }
 
 class MyApp extends StatelessWidget {
