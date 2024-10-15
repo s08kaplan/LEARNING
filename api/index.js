@@ -18,6 +18,8 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 
+app.use(require("./src/middlewares/queryHandler"))
+
 app.use(require("./src/middlewares/authentication"))
 
 app.use("/", require("./src/routes/"))
