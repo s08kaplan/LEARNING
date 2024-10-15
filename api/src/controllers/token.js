@@ -1,10 +1,10 @@
 "use strict"
 
-const User = require("../models/user")
+const Token = require("../models/token")
 
 module.exports = {
     list: async (req, res) => {
-      const data = await User.find()
+      const data = await Token.find()
 
       res.status(200).send({
         error: false,
@@ -13,9 +13,8 @@ module.exports = {
     },
 
     create: async (req, res) => {
-        req.body.isAdmin = false
 
-        const data = await User.create(req.body)
+        const data = await Token.create(req.body)
 
         res.status(201).send({
             error: false,
@@ -24,7 +23,7 @@ module.exports = {
     },
 
     read: async (req, res) => {
-      const data = await User.findOne({_id: req.params.userId})
+      const data = await Token.findOne({_id: req.params.tokenId})
 
       res.status(202).send({
         error: false,
@@ -33,9 +32,10 @@ module.exports = {
     },
 
     update: async (req, res) => {
-       await User.updateOne({_id: req.params.userId}, req.body, { runValidators : true})
+       await Token.updateOne({_id: req.params.tokenId}, req.body, { runValidators: true})
 
-       const data = await User.findOne({_id: req.params.userId})
+       const data = await Token.findOne({_id: req.params.tokenId})
+       
       res.status(202).send({
         error: false,
          data
@@ -43,7 +43,7 @@ module.exports = {
     },
 
     delete: async (req, res) => {
-      const { deletedCount } = await User.deleteOne({_id: req.params.userId})
+      const { deletedCount } = await Token.deleteOne({_id: req.params.tokenId})
 
       res.status(deletedCount ? 204 : 404).send({
         error: !!!deletedCount,

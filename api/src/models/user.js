@@ -8,6 +8,7 @@ const UserSchema = new Schema({
         type: String,
         trim: true,
         required: true,
+        unique: true,
         index: true
     },
 
@@ -15,6 +16,7 @@ const UserSchema = new Schema({
         type: String,
         trim: true,
         required: true,
+        unique: true,
         index: true,
         set:(email) => emailValidate(email)
     },

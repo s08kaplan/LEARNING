@@ -17,19 +17,24 @@ app.use(require("cors")())
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
+
+app.use(require("./src/middlewares/authentication"))
+
 app.use("/", require("./src/routes/"))
 
 app.get("/", (req, res) => {
   res.status(200).send({
     error: false,
-    message:"Welcome whoever you are just come with happiness"
+    message:"Welcome whoever you are just come with happiness",
+    user: req.user
   })
 })
 
 app.get("/*", (req, res) => {
   res.status(404).send({
     error: true,
-    message:"No valid route, you are lost turn back"
+    message:"No valid route, you are lost turn back",
+    user: req.user
   })
 })
 
